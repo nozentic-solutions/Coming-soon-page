@@ -6,10 +6,9 @@
   <title>Nozentic — Coming Soon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <script>
-    // Set your actual launch date here
     const COUNTDOWN_TARGET = '2026-08-31T00:00:00';
   </script>
 
@@ -17,1043 +16,553 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg-primary:       #040608;
-      --bg-secondary:     #080c10;
-      --bg-card:          #0d1117;
-      --bg-glass:         rgba(255,255,255,0.03);
-      --border:           rgba(255,255,255,0.06);
-      --border-accent:    rgba(255,255,255,0.12);
-      --text-primary:     #f0f4f8;
-      --text-secondary:   #7a8a9a;
-      --text-muted:       #3a4a5a;
-      --accent:           #4f8ef7;
-      --accent-glow:      rgba(79,142,247,0.20);
-      --accent-glow-lg:   rgba(79,142,247,0.08);
-      --accent-2:         #a78bfa;
-      --dot-color:        rgba(255,255,255,0.04);
-      --particle-color:   rgba(79,142,247,0.6);
-      --orb1:             rgba(79,142,247,0.12);
-      --orb2:             rgba(167,139,250,0.08);
-      --orb3:             rgba(56,189,248,0.07);
-      --shine:            rgba(255,255,255,0.05);
-      --card-num:         #ffffff;
-      --card-label:       #4a6a8a;
-      --separator:        rgba(255,255,255,0.08);
-      --progress-track:   rgba(255,255,255,0.06);
-      --bar-glow:         rgba(79,142,247,0.5);
-      --toggle-bg:        rgba(255,255,255,0.08);
+      --lime: #C5F135;
+      --lime-dim: rgba(197,241,53,0.12);
+      --lime-dim2: rgba(197,241,53,0.06);
+      --black: #0a0a0a;
+      --black2: #111111;
+      --white: #ffffff;
+      --off-white: #f4f4f2;
+      --gray: #888888;
+      --gray-light: #cccccc;
+      --border-dark: rgba(255,255,255,0.08);
+      --border-dark2: rgba(255,255,255,0.15);
+
+      /* dark mode defaults */
+      --bg: var(--black);
+      --bg2: var(--black2);
+      --fg: var(--white);
+      --fg-sub: var(--gray);
+      --fg-muted: #444;
+      --card-bg: #161616;
+      --card-border: rgba(255,255,255,0.07);
+      --card-border-h: rgba(197,241,53,0.35);
+      --sep-color: rgba(255,255,255,0.06);
+      --marquee-bg: var(--lime);
+      --marquee-fg: var(--black);
+      --grid-color: rgba(255,255,255,0.035);
+      --header-bg: #ffffff;
     }
 
-    body.light-mode {
-      --bg-primary:       #ffffff;
-      --bg-secondary:     #f1f6ff;
-      --bg-card:          #ffffff;
-      --bg-glass:         rgba(0,0,0,0.02);
-      --border:           rgba(0,0,0,0.06);
-      --border-accent:    rgba(0,0,0,0.12);
-      --text-primary:     #0d1117;
-      --text-secondary:   #4a5a6a;
-      --text-muted:       #9aacbc;
-      --accent:           #2563eb;
-      --accent-glow:      rgba(37,99,235,0.15);
-      --accent-glow-lg:   rgba(37,99,235,0.06);
-      --accent-2:         #7c3aed;
-      --dot-color:        rgba(0,0,0,0.04);
-      --particle-color:   rgba(37,99,235,0.5);
-      --orb1:             rgba(37,99,235,0.08);
-      --orb2:             rgba(124,58,237,0.06);
-      --orb3:             rgba(14,165,233,0.06);
-      --shine:            rgba(255,255,255,0.7);
-      --card-num:         #0d1117;
-      --card-label:       #8a9aaa;
-      --separator:        rgba(0,0,0,0.08);
-      --progress-track:   rgba(0,0,0,0.06);
-      --bar-glow:         rgba(37,99,235,0.4);
-      --toggle-bg:        rgba(0,0,0,0.08);
+    body.light {
+      --bg: var(--off-white);
+      --bg2: #e8e8e4;
+      --fg: #0a0a0a;
+      --fg-sub: #555;
+      --fg-muted: #aaa;
+      --card-bg: #ffffff;
+      --card-border: rgba(0,0,0,0.08);
+      --card-border-h: rgba(100,160,0,0.4);
+      --sep-color: rgba(0,0,0,0.08);
+      --lime: #8ab800;
+      --lime-dim: rgba(138,184,0,0.1);
+      --grid-color: rgba(0,0,0,0.04);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
       min-height: 100vh;
       overflow-x: hidden;
-      transition: background-color 0.5s ease, color 0.5s ease;
+      transition: background 0.4s, color 0.4s;
     }
 
-    #particle-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.6;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: 0;
-      transition: background 0.5s;
-    }
-    .orb-1 { width: 700px; height: 700px; top: -200px; left: -200px;  background: var(--orb1); animation: orbFloat1 18s ease-in-out infinite; }
-    .orb-2 { width: 600px; height: 600px; bottom: -150px; right: -150px; background: var(--orb2); animation: orbFloat2 22s ease-in-out infinite; }
-    .orb-3 { width: 400px; height: 400px; top: 40%; left: 50%; transform: translate(-50%,-50%); background: var(--orb3); animation: orbFloat3 15s ease-in-out infinite; }
-
-    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(60px,40px) scale(1.08)} }
-    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-50px,-30px) scale(1.05)} }
-    @keyframes orbFloat3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.12)} }
-
-    .dot-grid {
+    /* Grid background */
+    .grid-bg {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 48px 48px;
     }
 
-    .page-wrapper {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 24px 60px;
-    }
-
-    /* Header */
-    .header-bar {
+    /* Header — always white regardless of theme */
+    .header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 40px;
-      height: 70px;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: rgba(4,6,8,0.6);
-      transition: background 0.5s, border-color 0.5s;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background: #ffffff;
     }
-    body.light-mode .header-bar { background: rgba(245,247,250,0.7); }
 
-    .header-logo-group {
+    .logo-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
-    .header-logo-img {
+
+    /* Inline SVG logo — no box, no border */
+    .logo-mark svg {
+      display: block;
+      width: 38px;
+      height: auto;
+    }
+
+    .logo-img {
       width: 36px;
       height: 36px;
       object-fit: contain;
-      border-radius: 8px;
     }
-    .header-brand {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
+
+    .logo-text {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #0a0a0a;
     }
-    .header-brand span { color: var(--accent); }
 
     /* Theme toggle */
-    .theme-toggle {
-      width: 52px; height: 28px;
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toggle-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .toggle-btn {
+      width: 48px;
+      height: 26px;
       border-radius: 100px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--border-accent);
+      border: 1px solid rgba(0,0,0,0.12);
+      background: #f5f5f5;
       cursor: pointer;
       position: relative;
-      display: flex;
-      align-items: center;
-      padding: 0 4px;
-      transition: background 0.4s, border-color 0.4s;
+      transition: border-color 0.3s;
     }
-    .theme-toggle:hover { border-color: var(--accent); }
-    .toggle-thumb {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
+    .toggle-btn:hover { border-color: var(--lime); }
+    .toggle-knob {
       position: absolute;
-      left: 4px;
-      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.4s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--lime);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
     }
-    body.light-mode .toggle-thumb { transform: translateX(24px); }
+    body.light .toggle-knob { transform: translateX(22px); }
 
-    .toggle-icon {
-      width: 12px; height: 12px;
-      fill: none;
-      stroke: #fff;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .icon-sun, .icon-moon { position: absolute; transition: opacity 0.3s; }
-    .icon-sun  { opacity: 0; }
-    .icon-moon { opacity: 1; }
-    body.light-mode .icon-sun  { opacity: 1; }
-    body.light-mode .icon-moon { opacity: 0; }
-
-    /* Content wrap */
-    .content-wrap {
-      margin-top: 70px;
+    /* Page layout */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      padding: 100px 24px 80px;
+    }
+
+    .inner {
       width: 100%;
-      max-width: 960px;
-      text-align: center;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    /* Status badge */
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      border-radius: 100px;
-      border: 1px solid rgba(79,142,247,0.30);
-      background: rgba(79,142,247,0.10);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+    /* Eyebrow */
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #82aef5;
-      margin-bottom: 44px;
-      animation: fadeSlideDown 0.8s ease both;
+      color: var(--fg-sub);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeUp 0.7s ease both;
     }
-    body.light-mode .status-badge {
-      border-color: rgba(37,99,235,0.25);
-      background: rgba(37,99,235,0.08);
-      color: #2563eb;
-    }
-    .status-dot {
-      width: 7px; height: 7px;
+    .eyebrow-dot {
+      width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-      animation: pulse-dot 2s ease-in-out infinite;
+      background: var(--lime);
+      box-shadow: 0 0 10px var(--lime);
+      animation: blink 2s ease-in-out infinite;
     }
-    @keyframes pulse-dot {
-      0%,100% { box-shadow: 0 0 0 3px var(--accent-glow); }
-      50%      { box-shadow: 0 0 0 7px transparent; }
-    }
-
-    /* ── Hero Logo — bigger, no spinning rings ── */
-    .hero-logo-wrap {
-      position: relative;
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 48px;
-      animation: fadeSlideDown 0.9s 0.1s ease both;
-    }
-    .hero-logo-img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      border-radius: 36px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      padding: 24px;
-      box-shadow: 0 0 60px var(--accent-glow), 0 24px 80px rgba(0,0,0,0.4);
-      transition: background 0.5s, border-color 0.5s;
+    @keyframes blink {
+      0%,100% { opacity: 1; box-shadow: 0 0 10px var(--lime); }
+      50% { opacity: 0.4; box-shadow: 0 0 4px var(--lime); }
     }
 
-    /* Headline */
+    /* Hero headline — brutalist large type */
     .headline {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 7vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.05;
-      margin-bottom: 24px;
-      animation: fadeSlideUp 1s 0.2s ease both;
-    }
-    .headline-gradient {
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 55%, var(--accent-2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      margin-bottom: 0;
+      animation: fadeUp 0.8s 0.1s ease both;
+      text-transform: uppercase;
     }
 
-    /* Subtext */
+    .hl-lime {
+      display: inline-block;
+      background: var(--lime);
+      color: var(--black);
+      padding: 0 12px 4px;
+      /* brutalist highlight — exactly like the reference */
+    }
+
     .subtext {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
       font-weight: 400;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      max-width: 580px;
-      margin: 0 auto 52px;
-      animation: fadeSlideUp 1s 0.35s ease both;
+      color: var(--fg-sub);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-top: 36px;
+      margin-bottom: 64px;
+      animation: fadeUp 0.9s 0.25s ease both;
     }
 
     /* Countdown */
-    .countdown-section {
+    .countdown-wrap {
       width: 100%;
-      margin-bottom: 52px;
-      animation: fadeSlideUp 1s 0.5s ease both;
+      animation: fadeUp 1s 0.4s ease both;
+      margin-bottom: 56px;
     }
-    .countdown-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+
+    .countdown-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--fg-muted);
       margin-bottom: 20px;
     }
+
     .countdown-grid {
       display: flex;
       align-items: flex-start;
-      justify-content: center;
       gap: 0;
       flex-wrap: nowrap;
     }
-    .countdown-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px 24px 22px;
-      min-width: 130px;
+
+    .cd-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 28px 20px 22px;
+      min-width: 120px;
       flex: 1;
-      max-width: 160px;
+      max-width: 150px;
       position: relative;
       overflow: hidden;
-      transition: background 0.5s, border-color 0.5s, transform 0.3s;
+      transition: border-color 0.25s;
     }
-    .countdown-card:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-4px);
+    .cd-card:hover {
+      border-color: var(--card-border-h);
     }
-    .countdown-card::before {
+    .cd-card::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
+      height: 2px;
+      background: var(--lime);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
     }
-    .countdown-card:hover::before { opacity: 1; }
+    .cd-card:hover::after { transform: scaleX(1); }
 
-    .countdown-sep {
+    .cd-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 600;
+      color: var(--fg);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .cd-unit {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-top: 10px;
+    }
+
+    .cd-sep {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 28px 6px 0;
-      gap: 8px;
+      padding: 26px 8px 0;
+      gap: 6px;
       flex-shrink: 0;
     }
     .sep-dot {
-      width: 5px; height: 5px;
+      width: 4px; height: 4px;
       border-radius: 50%;
-      background: var(--text-muted);
+      background: var(--fg-muted);
       animation: sepBlink 1.5s ease-in-out infinite;
     }
-    .sep-dot:last-child { animation-delay: 0.35s; }
+    .sep-dot:last-child { animation-delay: 0.4s; }
     @keyframes sepBlink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-    .countdown-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 700;
-      color: var(--card-num);
-      line-height: 1;
-      letter-spacing: -0.03em;
+    /* Marquee */
+    .marquee-strip {
+      width: 100vw;
       position: relative;
-      z-index: 1;
-    }
-    .countdown-unit {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--card-label);
-      margin-top: 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Progress bar */
-    .progress-wrap {
-      width: 100%;
-      max-width: 500px;
-      margin: 36px auto 0;
-    }
-    .progress-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .progress-meta-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .progress-meta-pct {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
-    }
-    .progress-track {
-      height: 4px;
-      border-radius: 100px;
-      background: var(--progress-track);
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      border-radius: 100px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 12px var(--bar-glow);
-      transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
-      position: relative;
-    }
-    .progress-fill::after {
-      content: '';
-      position: absolute;
-      right: 0; top: 50%;
-      transform: translateY(-50%);
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 8px var(--accent);
-    }
-
-    /* ── Tech Stack Orbit Section ── */
-    .tech-section {
-      width: 100%;
-      margin-bottom: 56px;
-      animation: fadeSlideUp 1s 0.65s ease both;
-    }
-    .tech-section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-    }
-
-    /* Orbit container */
-    .orbit-container {
-      position: relative;
-      width: 320px;
-      height: 320px;
-      margin: 0 auto;
-    }
-
-    /* Center dot */
-    .orbit-center {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow-lg);
-    }
-
-    /* Orbit ring paths */
-    .orbit-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      top: 50%; left: 50%;
-    }
-    .orbit-ring-inner {
-      width: 180px; height: 180px;
-      margin-left: -90px; margin-top: -90px;
-      animation: orbitSpin 14s linear infinite;
-    }
-    .orbit-ring-outer {
-      width: 300px; height: 300px;
-      margin-left: -150px; margin-top: -150px;
-      animation: orbitSpin 22s linear infinite reverse;
-    }
-
-    @keyframes orbitSpin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    /* Each tech icon node on the ring */
-    .orbit-node {
-      position: absolute;
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-      transition: border-color 0.3s, transform 0.3s;
-      /* Counter-rotate so icons stay upright */
-    }
-    .orbit-ring-inner .orbit-node {
-      animation: orbitCounter 14s linear infinite;
-    }
-    .orbit-ring-outer .orbit-node {
-      animation: orbitCounter 22s linear infinite reverse;
-    }
-    @keyframes orbitCounter {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(-360deg); }
-    }
-
-    .orbit-node:hover {
-      border-color: var(--accent);
-      transform: scale(1.15) !important;
-      animation-play-state: paused;
-      z-index: 10;
-    }
-    .orbit-node img {
-      width: 28px; height: 28px;
-      object-fit: contain;
-    }
-
-    /* Position nodes on the inner ring (3 icons) */
-    .inner-node-1 { top: -24px; left: 50%; margin-left: -24px; }
-    .inner-node-2 { top: 50%; left: calc(100% - 24px); margin-top: -24px; transform: translateX(-100%); }
-    .inner-node-3 { top: calc(100% - 24px); left: 50%; margin-left: -24px; }
-
-    /* Position nodes on the outer ring (6 icons) */
-    .outer-node-1 { top: -24px; left: 50%; margin-left: -24px; }
-    .outer-node-2 { top: calc(14.6% - 24px); left: calc(85.4% - 24px); }
-    .outer-node-3 { top: calc(85.4% - 24px); left: calc(85.4% - 24px); }
-    .outer-node-4 { top: calc(100% - 24px); left: 50%; margin-left: -24px; }
-    .outer-node-5 { top: calc(85.4% - 24px); left: calc(14.6% - 24px); }
-    .outer-node-6 { top: calc(14.6% - 24px); left: calc(14.6% - 24px); }
-
-    /* Tooltip */
-    .orbit-node::after {
-      content: attr(data-tech);
-      position: absolute;
-      bottom: calc(100% + 8px);
       left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      color: var(--text-primary);
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      z-index: 20;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: var(--marquee-bg);
+      color: var(--marquee-fg);
+      overflow: hidden;
+      padding: 12px 0;
+      margin-bottom: 0;
+      animation: fadeUp 1s 0.6s ease both;
     }
-    .orbit-node:hover::after { opacity: 1; }
-
-    /* ── Feature Tags (plain design) ── */
-    .feature-tags {
+    .marquee-inner {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 60px;
-      animation: fadeSlideUp 1s 0.8s ease both;
+      width: max-content;
+      animation: marqueeScroll 28s linear infinite;
     }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      transition: border-color 0.3s, color 0.3s;
-    }
-    .tag:hover {
-      border-color: var(--border-accent);
-      color: var(--text-primary);
-    }
-    .tag-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.7;
+    .marquee-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0 36px;
+      white-space: nowrap;
       flex-shrink: 0;
     }
-
-    /* Social links */
-    .social-row {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      margin-bottom: 50px;
-      animation: fadeSlideUp 1s 0.9s ease both;
+    .marquee-bullet {
+      opacity: 0.4;
     }
-    .social-link {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--bg-glass);
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-inner { animation: none; }
+    }
+
+    /* Bottom row */
+    .bottom-row {
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding-top: 48px;
+      border-top: 1px solid var(--sep-color);
+      animation: fadeUp 1s 0.7s ease both;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--fg-muted);
+    }
+    .footer-copy a {
+      color: var(--lime);
       text-decoration: none;
-      transition: border-color 0.3s, background 0.3s, transform 0.3s;
-      backdrop-filter: blur(8px);
     }
-    .social-link:hover {
-      border-color: var(--accent);
-      background: var(--accent-glow);
-      transform: translateY(-3px);
-    }
-    .social-icon {
-      width: 18px; height: 18px;
-      fill: var(--text-secondary);
-      transition: fill 0.3s;
-    }
-    .social-link:hover .social-icon { fill: var(--accent); }
+    .footer-copy a:hover { text-decoration: underline; }
 
-    /* Footer */
-    .footer-line {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-      animation: fadeSlideUp 1s 1s ease both;
-    }
-    .footer-line a { color: var(--accent); text-decoration: none; }
-    .footer-line a:hover { text-decoration: underline; }
-
-    /* Animations */
-    @keyframes fadeSlideDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .flip { animation: flipNum 0.45s ease; }
+    /* Flip animation for countdown */
+    .flip { animation: flipNum 0.4s ease; }
     @keyframes flipNum {
-      0%   { transform: rotateX(0); opacity: 1; }
-      40%  { transform: rotateX(-90deg); opacity: 0; }
-      60%  { transform: rotateX(90deg); opacity: 0; }
-      100% { transform: rotateX(0); opacity: 1; }
+      0%   { opacity: 1; transform: translateY(0); }
+      45%  { opacity: 0; transform: translateY(-6px); }
+      55%  { opacity: 0; transform: translateY(6px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
+    /* Fade-up animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
     @media (max-width: 640px) {
-      .header-bar { padding: 0 20px; }
-      .countdown-card { min-width: 70px; padding: 20px 12px 16px; border-radius: 14px; }
-      .countdown-sep { padding: 20px 3px 0; }
-      .headline { font-size: clamp(2rem, 10vw, 3.5rem); }
-      .hero-logo-wrap { width: 130px; height: 130px; }
-      .hero-logo-img { width: 130px; height: 130px; border-radius: 26px; }
-      .orbit-container { width: 250px; height: 250px; }
-      .orbit-ring-inner { width: 140px; height: 140px; margin-left: -70px; margin-top: -70px; }
-      .orbit-ring-outer { width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; }
-      .orbit-node { width: 40px; height: 40px; border-radius: 10px; }
-      .orbit-node img { width: 22px; height: 22px; }
+      .header { padding: 0 20px; }
+      .inner { align-items: flex-start; }
+      .cd-card { min-width: 68px; padding: 18px 12px 14px; }
+      .cd-sep { padding: 18px 4px 0; }
+      .bottom-row { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 400px) {
-      .countdown-card { min-width: 60px; }
-      .countdown-sep { display: none; }
+      .cd-sep { display: none; }
       .countdown-grid { gap: 8px; }
     }
   </style>
 </head>
 <body>
 
-  <canvas id="particle-canvas"></canvas>
-  <div class="dot-grid"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <div class="grid-bg"></div>
 
   <!-- Header -->
-  <header class="header-bar">
-    <div class="header-logo-group">
-      <img src="/nozentic-logo.png" alt="Nozentic" class="header-logo-img" />
-      <span class="header-brand">Nozen<span>tic</span></span>
+  <header class="header">
+    <div class="logo-group">
+      <!-- Place your logo image file as nozentic-logo.png in the same folder -->
+      <img src="nozentic-logo.png" alt="Nozentic" class="logo-img" />
+      <span class="logo-text">Nozentic</span>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <div class="toggle-thumb">
-        <svg class="toggle-icon icon-moon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <svg class="toggle-icon icon-sun" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </div>
-    </button>
+
+    <div class="toggle-wrap">
+      <span class="toggle-label" id="toggle-lbl">Dark</span>
+      <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme">
+        <div class="toggle-knob"></div>
+      </button>
+    </div>
   </header>
 
-  <!-- Main content -->
-  <div class="page-wrapper">
-    <div class="content-wrap">
+  <!-- Main -->
+  <div class="page">
+    <div class="inner">
 
-      <!-- Status badge -->
-      <div class="status-badge">
-        <span class="status-dot"></span>
-        Under Development
+      <!-- Eyebrow -->
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Under Development &nbsp;·&nbsp; Est. 2026
       </div>
 
-      <!-- Hero logo — bigger, no rings -->
-      <div class="hero-logo-wrap">
-        <img src="/nozentic-logo.png" alt="Nozentic Logo" class="hero-logo-img" />
-      </div>
-
-      <!-- Headline -->
+      <!-- Hero headline -->
       <h1 class="headline">
-        <span class="headline-gradient">Something Big<br>Is Coming</span>
+        Something<br>
+        <span class="hl-lime">Big</span><br>
+        Is Coming.
       </h1>
 
-      <!-- Subtext -->
       <p class="subtext">
-        We are crafting a premium digital experience for <strong>Nozentic</strong>.
-        Our official website is currently under development stay tuned and be the first to experience it.
+        We're building something different — a software solutions studio crafted for teams that refuse to settle. Stay close. The wait won't be long.
       </p>
 
       <!-- Countdown -->
-      <div class="countdown-section">
-        <p class="countdown-label">Official Launch Countdown</p>
+      <div class="countdown-wrap">
+        <p class="countdown-meta">// Official Launch Countdown</p>
         <div class="countdown-grid">
-          <div class="countdown-card">
-            <div class="countdown-num" id="cd-days">00</div>
-            <div class="countdown-unit">Days</div>
+          <div class="cd-card">
+            <div class="cd-num" id="cd-days">00</div>
+            <div class="cd-unit">Days</div>
           </div>
-          <div class="countdown-sep">
+          <div class="cd-sep">
             <span class="sep-dot"></span>
             <span class="sep-dot"></span>
           </div>
-          <div class="countdown-card">
-            <div class="countdown-num" id="cd-hours">00</div>
-            <div class="countdown-unit">Hours</div>
+          <div class="cd-card">
+            <div class="cd-num" id="cd-hours">00</div>
+            <div class="cd-unit">Hours</div>
           </div>
-          <div class="countdown-sep">
+          <div class="cd-sep">
             <span class="sep-dot"></span>
             <span class="sep-dot"></span>
           </div>
-          <div class="countdown-card">
-            <div class="countdown-num" id="cd-mins">00</div>
-            <div class="countdown-unit">Minutes</div>
+          <div class="cd-card">
+            <div class="cd-num" id="cd-mins">00</div>
+            <div class="cd-unit">Mins</div>
           </div>
-          <div class="countdown-sep">
+          <div class="cd-sep">
             <span class="sep-dot"></span>
             <span class="sep-dot"></span>
           </div>
-          <div class="countdown-card">
-            <div class="countdown-num" id="cd-secs">00</div>
-            <div class="countdown-unit">Seconds</div>
+          <div class="cd-card">
+            <div class="cd-num" id="cd-secs">00</div>
+            <div class="cd-unit">Secs</div>
           </div>
         </div>
 
-        <!-- Progress bar -->
-        <div class="progress-wrap">
-          <div class="progress-meta">
-            <span class="progress-meta-label">Development Progress</span>
-            <span class="progress-meta-pct" id="progress-pct">40%</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="progress-bar" style="width:0%"></div>
-          </div>
-        </div>
       </div>
 
-      <!-- Tech Stack Orbit -->
-      <div class="tech-section">
-        <p class="tech-section-label">Built With</p>
-        <div class="orbit-container">
-          <div class="orbit-center"></div>
+    </div><!-- /.inner -->
+  </div>
 
-          <!-- Inner orbit ring — 3 icons -->
-          <div class="orbit-ring orbit-ring-inner">
-            <!-- React -->
-            <div class="orbit-node inner-node-1" data-tech="React">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348" width="28" height="28">
-                <circle cx="0" cy="0" r="2.05" fill="#61dafb"/>
-                <g stroke="#61dafb" stroke-width="1" fill="none">
-                  <ellipse rx="11" ry="4.2"/>
-                  <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-                  <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
-                </g>
-              </svg>
-            </div>
-            <!-- Node.js -->
-            <div class="orbit-node inner-node-2" data-tech="Node.js">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <path d="M16 2L2 10v12l14 8 14-8V10L16 2z" fill="#339933"/>
-                <path d="M16 8v16M8 12l8 4 8-4" stroke="#fff" stroke-width="1.5" fill="none"/>
-              </svg>
-            </div>
-            <!-- MongoDB -->
-            <div class="orbit-node inner-node-3" data-tech="MongoDB">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <path d="M16 3c-4.5 5-7 9-7 13a7 7 0 0 0 14 0c0-4-2.5-8-7-13z" fill="#47A248"/>
-                <rect x="15.2" y="20" width="1.6" height="9" rx="0.8" fill="#47A248"/>
-              </svg>
-            </div>
-          </div>
+  <!-- Marquee strip — full width -->
+  <div class="marquee-strip">
+    <div class="marquee-inner" id="marquee-inner"></div>
+  </div>
 
-          <!-- Outer orbit ring — 6 icons -->
-          <div class="orbit-ring orbit-ring-outer">
-            <!-- Next.js -->
-            <div class="orbit-node outer-node-1" data-tech="Next.js">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <circle cx="16" cy="16" r="14" fill="#000"/>
-                <path d="M10 22V10l14 14" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                <line x1="10" y1="10" x2="22" y2="10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <!-- TypeScript -->
-            <div class="orbit-node outer-node-2" data-tech="TypeScript">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <rect width="32" height="32" rx="4" fill="#3178C6"/>
-                <path d="M18 14h-8v3h3v9h2v-9h3V14z" fill="#fff"/>
-                <path d="M22 17c-1-0.5-3-0.8-3 1.5 0 2.5 3.5 1.5 3.5 4 0 1.5-1 2.5-3.5 2.5l-1-0.3" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <!-- PostgreSQL -->
-            <div class="orbit-node outer-node-3" data-tech="PostgreSQL">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <ellipse cx="16" cy="10" rx="10" ry="5" fill="#336791"/>
-                <path d="M6 10v10c0 2.8 4.5 5 10 5s10-2.2 10-5V10" fill="#336791" stroke="#4a8bbf" stroke-width="1"/>
-                <ellipse cx="16" cy="10" rx="10" ry="5" fill="#4a8bbf"/>
-                <ellipse cx="16" cy="10" rx="7" ry="3" fill="#336791"/>
-              </svg>
-            </div>
-            <!-- AWS -->
-            <div class="orbit-node outer-node-4" data-tech="AWS">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <path d="M4 20l4-10 4 10M5.5 17h5M20 12c0 0-1-2-3-2s-3 1.5-3 3 1.5 3 3 3 3 1.5 3 3-1 3-3 3-3-2-3-2M28 12l-3 10-3-10" stroke="#FF9900" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <!-- Docker -->
-            <div class="orbit-node outer-node-5" data-tech="Docker">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <rect x="5" y="7" width="4" height="4" rx="0.5" fill="#2496ED"/>
-                <rect x="10" y="7" width="4" height="4" rx="0.5" fill="#2496ED"/>
-                <rect x="15" y="7" width="4" height="4" rx="0.5" fill="#2496ED"/>
-                <rect x="10" y="12" width="4" height="4" rx="0.5" fill="#2496ED"/>
-                <rect x="15" y="12" width="4" height="4" rx="0.5" fill="#2496ED"/>
-                <rect x="20" y="12" width="4" height="4" rx="0.5" fill="#2496ED"/>
-                <path d="M5 19c2 4 8 5 14 3 4-1.5 7-4 8-8H5v5z" fill="#2496ED"/>
-              </svg>
-            </div>
-            <!-- .NET / C# -->
-            <div class="orbit-node outer-node-6" data-tech=".NET / C#">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
-                <circle cx="16" cy="16" r="13" fill="#512BD4"/>
-                <text x="16" y="21" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="white">C#</text>
-              </svg>
-            </div>
-          </div>
-        </div>
+  <!-- Footer -->
+  <div class="page" style="min-height:unset; padding:40px 24px 56px;">
+    <div class="inner">
+      <div class="bottom-row">
+        <p class="footer-copy">&copy; 2026 Nozentic. All rights reserved.</p>
+        <p class="footer-copy"><a href="mailto:nozentic@gmail.com">nozentic@gmail.com</a></p>
       </div>
-
-      <!-- Feature tags — plain design -->
-      <div class="feature-tags">
-        <span class="tag"><span class="tag-dot"></span>Enterprise Security</span>
-        <span class="tag"><span class="tag-dot"></span>High Performance</span>
-        <span class="tag"><span class="tag-dot"></span>Global Scale</span>
-        <span class="tag"><span class="tag-dot"></span>Dedicated Support</span>
-        <span class="tag"><span class="tag-dot"></span>Cutting-Edge Tech</span>
-      </div>
-
-      <!-- Social links -->
-      <!-- <div class="social-row">
-        <a href="#" class="social-link" aria-label="LinkedIn">
-          <svg class="social-icon" viewBox="0 0 24 24">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-            <rect x="2" y="9" width="4" height="12"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-        </a>
-        <a href="#" class="social-link" aria-label="X (Twitter)">
-          <svg class="social-icon" viewBox="0 0 24 24">
-            <path d="M4 4l16 16M4 20L20 4" stroke-width="2" stroke-linecap="round" fill="none" stroke="currentColor"/>
-          </svg>
-        </a>
-        <a href="#" class="social-link" aria-label="Instagram">
-          <svg class="social-icon" viewBox="0 0 24 24">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
-        </a>
-        <a href="#" class="social-link" aria-label="GitHub">
-          <svg class="social-icon" viewBox="0 0 24 24">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-          </svg>
-        </a>
-        <a href="mailto:hello@nozentic.com" class="social-link" aria-label="Email">
-          <svg class="social-icon" viewBox="0 0 24 24">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-        </a>
-      </div> -->
-
-      <p class="footer-line">
-        &copy; 2026 <strong>Nozentic</strong>. All rights reserved. &nbsp;|&nbsp;
-        <a href="mailto:hello@nozentic.com">nozentic@gmail.com</a>
-      </p>
-
     </div>
   </div>
 
   <script>
+    /* ── Marquee items ── */
+    const marqueeItems = [
+      'Web', '·', 'Software', '·', 'Apps', '·', 'MSP',
+      '·', 'Global Delivery', '·', '30+ Countries', '·',
+      'Web', '·', 'Software', '·', 'Apps', '·', 'MSP',
+      '·', 'Global Delivery', '·', '30+ Countries', '·',
+    ];
+    const mi = document.getElementById('marquee-inner');
+    // Duplicate for seamless loop
+    const full = [...marqueeItems, ...marqueeItems];
+    mi.innerHTML = full.map(t =>
+      `<span class="marquee-item${t==='·'?' marquee-bullet':''}">${t}</span>`
+    ).join('');
+
     /* ── Countdown ── */
     const target    = new Date(COUNTDOWN_TARGET).getTime();
     const START_DATE = new Date('2025-07-01T00:00:00').getTime();
 
-    const elDays  = document.getElementById('cd-days');
-    const elHours = document.getElementById('cd-hours');
-    const elMins  = document.getElementById('cd-mins');
-    const elSecs  = document.getElementById('cd-secs');
-    const elBar   = document.getElementById('progress-bar');
-    const elPct   = document.getElementById('progress-pct');
-
     function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
-
-    function flipEl(el, newVal) {
-      if (el.textContent !== newVal) {
+    function flipEl(el, val) {
+      if (el.textContent !== val) {
         el.classList.remove('flip');
         void el.offsetWidth;
         el.classList.add('flip');
-        el.textContent = newVal;
+        el.textContent = val;
       }
     }
-
     function tick() {
       const now  = Date.now();
       const diff = Math.max(0, target - now);
-
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000)  / 60000);
-      const s = Math.floor((diff % 60000)    / 1000);
-
-      flipEl(elDays,  pad(d));
-      flipEl(elHours, pad(h));
-      flipEl(elMins,  pad(m));
-      flipEl(elSecs,  pad(s));
-
-      const totalDuration = target - START_DATE;
-      const elapsed       = now - START_DATE;
-      const pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDuration) * 100)));
-      elBar.style.width = pct + '%';
-      elPct.textContent = pct + '%';
+      flipEl(document.getElementById('cd-days'),  pad(Math.floor(diff / 86400000)));
+      flipEl(document.getElementById('cd-hours'), pad(Math.floor((diff % 86400000) / 3600000)));
+      flipEl(document.getElementById('cd-mins'),  pad(Math.floor((diff % 3600000) / 60000)));
+      flipEl(document.getElementById('cd-secs'),  pad(Math.floor((diff % 60000) / 1000)));
     }
-
     tick();
     setInterval(tick, 1000);
 
     /* ── Theme Toggle ── */
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
-    if (localStorage.getItem('nozentic-theme') === 'light') {
-      body.classList.add('light-mode');
+    const body   = document.body;
+    const btn    = document.getElementById('themeToggle');
+    const lbl    = document.getElementById('toggle-lbl');
+    if (localStorage.getItem('nzt-theme') === 'light') {
+      body.classList.add('light');
+      lbl.textContent = 'Light';
     }
-    themeToggle.addEventListener('click', () => {
-      body.classList.toggle('light-mode');
-      localStorage.setItem('nozentic-theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+    btn.addEventListener('click', () => {
+      body.classList.toggle('light');
+      const isLight = body.classList.contains('light');
+      lbl.textContent = isLight ? 'Light' : 'Dark';
+      localStorage.setItem('nzt-theme', isLight ? 'light' : 'dark');
     });
-
-    /* ── Particle Canvas ── */
-    const canvas = document.getElementById('particle-canvas');
-    const ctx    = canvas.getContext('2d');
-    let W, H, particles = [];
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    function randBetween(a, b) { return a + Math.random() * (b - a); }
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x  = randBetween(0, W);
-        this.y  = randBetween(0, H);
-        this.vx = randBetween(-0.18, 0.18);
-        this.vy = randBetween(-0.28, -0.06);
-        this.r  = randBetween(0.8, 2.2);
-        this.life = 0;
-        this.maxLife = randBetween(200, 500);
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.life++;
-        if (this.life > this.maxLife || this.y < -10) this.reset();
-      }
-      draw() {
-        const alpha = Math.sin((this.life / this.maxLife) * Math.PI) * 0.7;
-        const isDark = !document.body.classList.contains('light-mode');
-        const col = isDark ? `rgba(79,142,247,${alpha})` : `rgba(37,99,235,${alpha})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = col;
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 90; i++) {
-      const p = new Particle();
-      p.life = Math.floor(Math.random() * p.maxLife);
-      particles.push(p);
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => { p.update(); p.draw(); });
-      const isDark = !document.body.classList.contains('light-mode');
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 100) {
-            const alpha = (1 - dist / 100) * 0.15;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = isDark ? `rgba(79,142,247,${alpha})` : `rgba(37,99,235,${alpha})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
   </script>
+
 </body>
 </html>
